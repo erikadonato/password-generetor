@@ -5,8 +5,13 @@ export const Input = styled.input`
 export const InputContainer = styled.div`
     display: flex;
     flex-direction: row;
-    border: 1px solid red;
     width: 20rem;
     justify-content: space-between;
-    margin-bottom: 2%;
+    padding: 4% 3%;
+    border-radius: 10px;
+
+    &:hover{
+        background-color: #efefef;
+        border-bottom: 1px solid gray;
+    }   
 `

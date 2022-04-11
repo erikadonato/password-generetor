@@ -6,8 +6,11 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
+    height: 96vh;
 `
 export const PassForm = styled.form`
     display: flex; 
     flex-direction: column;
+    background-color: rgba(243,198,192, 0.5);
+    width: 21rem;
 `
