@@ -1,25 +1,31 @@
 export function getPassword({len, upperCase, lowerCase, symbols, numbers}) {
-    var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ!@#$%^&*()+?><:{}[]";
+    var charsNumber = "0123456789";
+    var charLowerCase = "abcdefghijklmnopqrstuvwxyz";
+    var charUpperCase = "ABCDEFGHIJLMNOPQRSTUVWXYZ";
+    var charSymbols = "!@#$%^&*()+?><:{}[]";
+    var chars = "";
+   
     var passwordLength = len;
     var password = "";
+    
+    if(upperCase){
+        chars += charUpperCase
+    }
+    if(lowerCase){
+        chars += charLowerCase
+    }
+    if(symbols){
+        chars += charSymbols
+    }
+    if(numbers){
+        chars+= charsNumber
+    }
 
-    if(upperCase === false){
-        chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()+?><:{}[]";
-    }
-    if(lowerCase === false ){
-        chars = "0123456789ABCDEFGHIJLMNOPQRSTUVWXYZ!@#$%^&*()+?><:{}[]"
-    }
-
-    if(numbers === false ) {
-        chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ!@#$%^&*()+?><:{}[]";
-    }
-    if(symbols === false) {
-        chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ";
-    }
 
     for (var i = 0; i < passwordLength; i++) {
       var randomNumber = Math.floor(Math.random() * chars.length);
       password += chars.substring(randomNumber, randomNumber + 1);
     }
+    
     return password
 }
