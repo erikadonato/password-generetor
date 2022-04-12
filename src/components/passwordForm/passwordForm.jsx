@@ -1,33 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../button/styles";
 import InputPass from "../input";
 import InputPasswordLen from "../inputPasswordLength";
-import { Container, PassForm } from "./styles";
+import PasswordResult from "../passwordResult";
+import { Container, PassForm, ButtonSpace } from "./styles";
+import { getPassword } from "../../utils/passwordGenerator"
 
 const PasswordForm = () => {
-    const [len, setLen] = useState();
-    const [upperCase, setUpperCase] = useState(false);
-    const [lowerCase, setLowerCase] = useState(false);
-    const [symbols, setSymbols] = useState(false);
-    const [numbers, setNumbers] = useState(false);
-    const [generate, setGenerate] = useState(false); 
+    const [len, setLen] = useState(24);
+    const [upperCase, setUpperCase] = useState(true);
+    const [lowerCase, setLowerCase] = useState(true);
+    const [symbols, setSymbols] = useState(true);
+    const [numbers, setNumbers] = useState(true);
+    const [passWord, setPassWord] = useState(null); 
 
-
-    useEffect(() => {
-
-    }, [generate])
+    function handleGenerate(){
+        setPassWord(getPassword({len, upperCase, lowerCase, symbols, numbers}))
+    }
 
 
     return (
         <Container>
+            <PasswordResult password={passWord}  />
             <PassForm>
                 <InputPasswordLen len={len} setLen={setLen} />
-                <InputPass  upperCase={upperCase} setUpperCase={setUpperCase} description={'Letras Maiúsculas'} />
-                <InputPass  lowerCase={lowerCase} setLowerCase={setLowerCase} description={'Letras Minúscula'} />
-                <InputPass symbols={symbols} setSymbols={setSymbols} description={'Símbolos'} />
-                <InputPass numbers={numbers} setNumbers={setNumbers} description={'Números'} />
+                <InputPass value={upperCase} setValue={setUpperCase} description={'Letras Maiúsculas'} />
+                <InputPass value={lowerCase} setValue={setLowerCase} description={'Letras Minúscula'} />
+                <InputPass value={symbols} setValue={setSymbols} description={'Símbolos'} />
+                <InputPass value={numbers} setValue={setNumbers} description={'Números'} />
                 <br />
-                <Button onClick={() => setGenerate(true)}>Gerar !</Button>
+                <ButtonSpace>
+                <Button onClick={() => handleGenerate()}>Gerar !</Button>
+                {passWord !== null ?
+                    <Button onClick={() => {}}>Copiar Senha</Button> 
+                : null}
+                </ButtonSpace>
             </PassForm>
         </Container>
     )

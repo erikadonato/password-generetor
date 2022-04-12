@@ -14,3 +14,8 @@ export const PassForm = styled.form`
     background-color: rgba(243,198,192, 0.5);
     width: 21rem;
 `
+export const ButtonSpace = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`
