@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import {CopyToClipboard} from "react-copy-to-clipboard";  
 import { Button } from "../button/styles";
 import InputPass from "../input";
 import InputPasswordLen from "../inputPasswordLength";
 import PasswordResult from "../passwordResult";
 import { Container, PassForm, ButtonSpace } from "./styles";
 import { getPassword } from "../../utils/passwordGenerator"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PasswordForm = () => {
     const [len, setLen] = useState(24);
@@ -14,10 +17,21 @@ const PasswordForm = () => {
     const [numbers, setNumbers] = useState(true);
     const [passWord, setPassWord] = useState(null); 
 
+    const notify = () => {
+        toast.success("Copiado com sucesso!", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+
     function handleGenerate(){
         setPassWord(getPassword({len, upperCase, lowerCase, symbols, numbers}))
     }
-
 
     return (
         <Container>
@@ -32,10 +46,13 @@ const PasswordForm = () => {
                 <ButtonSpace>
                 <Button onClick={() => handleGenerate()}>Gerar !</Button>
                 {passWord !== null ?
-                    <Button onClick={() => {}}>Copiar Senha</Button> 
+                    <CopyToClipboard text={passWord}>
+                        <Button onClick={() => notify()}>Copiar Senha</Button> 
+                    </CopyToClipboard>
                 : null}
                 </ButtonSpace>
             </PassForm>
+            <ToastContainer />
         </Container>
     )
 }
